@@ -3,10 +3,16 @@ import java.util.Arrays;
 public class SimpleSegmentTree {
     private Node[] heap; //an array representing segment tree
     private int[] array; //the original array saved
-    private int size; //the number of elements actually filled inside array
+    private int size; //the capacity of heap
+    private int[] indexMap; // this maps given original index of array to heap index (helps to grab leaf node quickly from heap)
 
     public SimpleSegmentTree(int[] input) {
         //implement me
+        this.array = Arrays.copyOf(input, input.length);
+        this.size = (int) (2 * Math.pow(2.0, Math.floor(Math.log((double) input.length)/Math.log(2.0) +1 )));
+        this.heap = new Node[size]; //instantiating heap
+        this.indexMap = new int[array.length];
+        build(0, 0, array.length - 1); //master
     }
 
     /**
@@ -17,6 +23,18 @@ public class SimpleSegmentTree {
      */
     private void build(int i, int start, int end) {
         //implement me
+        if (start == end) { //base case (leaf node)
+            heap[i] = new Node(array[start],start, end);
+            indexMap[start] = i; // saving the heap index value
+        } else { //branch node case
+            //divide into 2
+            int mid = (start + end) /2 ;
+            //build left sub-tree (0 - mid)
+            build(i * 2 + 1 , 0, mid);
+            //build right sub-tree (mid + 1 , end)
+            build( i * 2 + 2, mid + 1 , end);
+            heap[i] = new Node(heap[i*2 + 1].data + heap[i*2 + 2].data, start, end);
+        }
     }
 
     /**
@@ -56,9 +74,24 @@ public class SimpleSegmentTree {
 
     //Inner class to represent each node in segment tree
     private static class Node {
+        public int data; // stores a partial sum from start to end
+        public int start;
+        public int end;
 
-        //code to be used for toString
-//            return data + "(" + start + "," + end + ")";
+        public Node(int data, int start, int end) {
+            this.data = data;
+            this.start = start;
+            this.end = end;
+        }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "partial sum =" + data +
+                    ", from start=" + start +
+                    ", to end=" + end +
+                    '}';
+        }
     }
 
     private static int[] generateInput(int size) {
