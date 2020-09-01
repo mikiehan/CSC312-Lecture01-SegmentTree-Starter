@@ -53,7 +53,7 @@ public class SimpleSegmentTree {
      */
     public int sum(int end){
         //Implement me
-        return -1; //stub code (to be replaced)
+        return sum(0, end); //stub code (to be replaced)
     }
 
 
