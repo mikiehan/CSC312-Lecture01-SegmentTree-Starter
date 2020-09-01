@@ -42,7 +42,7 @@ public class SimpleSegmentTree {
      * @param k   index of array to update
      * @param val value to update with
      */
-    public void update(int k, int val) {
+    public void update(int k, int val) {  //recursion (need to have a helper method)
         //Implement me
     }
 
@@ -52,7 +52,6 @@ public class SimpleSegmentTree {
      * @return sum from index 0 to end in array
      */
     public int sum(int end){
-        //Implement me
         return sum(0, end); //stub code (to be replaced)
     }
 
@@ -63,9 +62,10 @@ public class SimpleSegmentTree {
      * @param to
      * @return sum from index start to end in array
      */
-    public int sum(int start, int to) {
+    public int sum(int start, int to) { //recursion (need to have a helper method)
         return -1; //stub code (to be replaced)
     }
+
 
     @Override
     public String toString() {
