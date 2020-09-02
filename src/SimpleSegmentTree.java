@@ -30,7 +30,7 @@ public class SimpleSegmentTree {
             //divide into 2
             int mid = (start + end) /2 ;
             //build left sub-tree (0 - mid)
-            build(i * 2 + 1 , 0, mid);
+            build(i * 2 + 1 , start, mid);
             //build right sub-tree (mid + 1 , end)
             build( i * 2 + 2, mid + 1 , end);
             heap[i] = new Node(heap[i*2 + 1].data + heap[i*2 + 2].data, start, end);
